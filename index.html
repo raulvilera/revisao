@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E.E. Profª Wanda Mascagni de Sá – Biologia 3º F</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f0f4fa 0%, #e8f0fe 100%);
+            padding: 30px 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0, 10, 30, 0.15);
+            padding: 30px 35px;
+        }
+
+        .school-header {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #0b2b4b;
+            letter-spacing: -0.5px;
+            border-left: 12px solid #2ecc71;
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .student-info-panel {
+            background: #e8f5e9;
+            border-radius: 28px;
+            padding: 22px 25px;
+            margin-bottom: 25px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px 20px;
+            align-items: center;
+            border: 1px solid #a5d6a7;
+        }
+
+        .info-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 8px 18px;
+            border-radius: 40px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            flex: 1 1 230px;
+            min-width: 230px;
+        }
+
+        /* Campo Nome: precisa de mais espaço porque os nomes dos alunos
+           são longos e o texto ficava cortado dentro do select. */
+        .info-group.info-group-nome {
+            flex: 2.4 1 380px;
+            min-width: 320px;
+        }
+
+        /* Campo Turma: só precisa exibir "8º Ano A/B", então fica mais compacto. */
+        .info-group.info-group-turma {
+            flex: 0.9 1 170px;
+            min-width: 150px;
+        }
+
+        .info-group label {
+            font-weight: 600;
+            color: #1b5e20;
+            white-space: nowrap;
+        }
+
+        select,
+        input[type="text"] {
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            padding: 6px 0;
+            outline: none;
+            border-bottom: 2px dotted #81c784;
+            font-weight: 500;
+            color: #0b2b4b;
+            width: 100%;
+            min-width: 160px;
+        }
+
+        .info-group-nome select {
+            min-width: 260px;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        select:disabled {
+            cursor: not-allowed;
+            opacity: 0.55;
+        }
+
+        input[readonly] {
+            background-color: transparent;
+            cursor: default;
+        }
+
+        .hint-turma-primeiro {
+            width: 100%;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #1b5e20;
+            background: #f1f8e9;
+            border: 1px dashed #2ecc71;
+            border-radius: 20px;
+            padding: 8px 16px;
+        }
+
+        .title-activity {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1b5e20;
+            margin: 20px 0 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(145deg, #e8f5e9, #ffffff);
+            padding: 15px;
+            border-radius: 60px;
+            border: 2px solid #2ecc71;
+        }
+
+        .sub {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #2e7d32;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .question-block {
+            background: #ffffff;
+            border-radius: 30px;
+            padding: 25px 25px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 20, 50, 0.1);
+            border: 1px solid #c8e6c9;
+        }
+
+        .question-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .question-icon {
+            font-size: 1.6rem;
+            background: #c8e6c9;
+            width: 55px;
+            min-width: 55px;
+            height: 55px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1b5e20;
+            font-weight: 800;
+        }
+
+        .question-text-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .question-context {
+            font-size: 1rem;
+            color: #34506f;
+            line-height: 1.5;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #1b5e20;
+        }
+
+        .habilidade-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #ffffff;
+            background: #2e7d32;
+            padding: 3px 12px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .tipo-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #ffffff;
+            background: #1976d2;
+            padding: 2px 8px;
+            border-radius: 15px;
+            margin-left: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .tipo-tag.dissertativa {
+            background: #d32f2f;
+        }
+
+        .options {
+            padding-left: 70px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #f1f8e9;
+            padding: 8px 20px;
+            border-radius: 40px;
+            border: 1px solid #a5d6a7;
+            transition: 0.1s;
+            cursor: pointer;
+        }
+
+        .option-item:hover {
+            background: #c8e6c9;
+        }
+
+        .option-item.selected {
+            background: #2e7d32;
+            color: white;
+            border-color: #1b5e20;
+            box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .option-item.selected .option-text {
+            color: white;
+        }
+
+        .option-item input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #2ecc71;
+        }
+
+        .option-text {
+            font-size: 1.05rem;
+            color: inherit;
+        }
+
+        .discursive-box {
+            padding-left: 70px;
+            margin-top: 12px;
+        }
+
+        textarea {
+            width: 100%;
+            border: 2px solid #a5d6a7;
+            border-radius: 20px;
+            padding: 15px 20px;
+            font-size: 1rem;
+            resize: vertical;
+            background: #f1f8e9;
+            font-family: Arial, sans-serif;
+        }
+
+        textarea:focus {
+            border-color: #2ecc71;
+            outline: none;
+            background: #e8f5e9;
+        }
+
+        .img-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e8f5e9;
+            border-radius: 20px;
+            padding: 15px;
+            margin: 10px 0 15px 70px;
+            color: #1b5e20;
+            font-weight: 500;
+            gap: 12px;
+            border: 1px dashed #2ecc71;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .img-placeholder i {
+            font-size: 2.6rem;
+            color: #2e7d32;
+        }
+
+        /* ---------- ZOOM DE IMAGEM ---------- */
+        .img-placeholder img.zoomable {
+            cursor: zoom-in;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .img-placeholder img.zoomable:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+        }
+
+        .zoom-hint {
+            font-size: 0.8rem;
+            color: #1b5e20;
+            opacity: 0.75;
+            margin-top: -6px;
+        }
+
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            cursor: zoom-out;
+            padding: 30px;
+            animation: fadeInOverlay 0.15s ease;
+        }
+
+        @keyframes fadeInOverlay {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .lightbox-overlay img {
+            max-width: 92vw;
+            max-height: 90vh;
+            border-radius: 14px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            animation: zoomInImg 0.18s ease;
+            cursor: default;
+        }
+
+        @keyframes zoomInImg {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .lightbox-close {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            font-size: 2.2rem;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.15);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10000;
+            transition: background 0.15s;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .submit-area {
+            text-align: center;
+            margin: 40px 0 10px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            border: none;
+            font-size: 1.3rem;
+            font-weight: 700;
+            padding: 12px 25px;
+            border-radius: 40px;
+            cursor: pointer;
+            box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.07s;
+            border: 2px solid #2ecc71;
+            color: white;
+        }
+
+        .btn-submit {
+            background: #2e7d32;
+        }
+
+        .btn-submit:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-delete {
+            background: #d32f2f;
+            border-color: #d32f2f;
+            box-shadow: 0 5px 0 rgba(211, 47, 47, 0.3);
+        }
+
+        .btn-delete:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 rgba(211, 47, 47, 0.3);
+        }
+
+        .btn-print {
+            background: #1976d2;
+            border-color: #1976d2;
+            box-shadow: 0 5px 0 rgba(25, 118, 210, 0.3);
+        }
+
+        .btn-print:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 rgba(25, 118, 210, 0.3);
+        }
+
+        .footer-note {
+            margin-top: 25px;
+            color: #3d5a78;
+            text-align: right;
+            font-size: 0.9rem;
+            border-top: 1px dashed #81c784;
+            padding-top: 15px;
+        }
+
+        .error-message {
+            background: #ffebee;
+            border: 1px solid #ef5350;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .success-message {
+            background: #e8f5e9;
+            border: 1px solid #66bb6a;
+            color: #1b5e20;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+            .submit-area {
+                display: none;
+            }
+            .lightbox-overlay,
+            .lightbox-close {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .student-info-panel {
+                flex-direction: column;
+            }
+            .info-group,
+            .info-group.info-group-nome,
+            .info-group.info-group-turma {
+                width: 100%;
+                flex: 1 1 100%;
+                min-width: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="app">
+        <div class="school-header">E.E. PROFª WANDA MASCAGNI DE SÁ</div>
+
+        <div class="student-info-panel">
+            <div class="info-group info-group-turma">
+                <label><i class="fas fa-people-group"></i> Turma:</label>
+                <select v-model="turmaSelecionada" @change="onTurmaChange">
+                    <option :value="null">-- Selecione --</option>
+                    <option value="A">8º Ano A</option>
+                    <option value="B">8º Ano B</option>
+                </select>
+            </div>
+            <div class="info-group info-group-nome">
+                <label><i class="fas fa-user-graduate"></i> Nome:</label>
+                <select v-model="alunoSelecionado" @change="preencherDados" :disabled="!turmaSelecionada">
+                    <option :value="null">{{ turmaSelecionada ? '-- Selecione seu nome --' : '-- Selecione a turma primeiro --' }}</option>
+                    <option v-for="a in alunosDaTurma" :key="a.num" :value="a">{{ a.nome }}</option>
+                </select>
+            </div>
+            <div class="info-group">
+                <label><i class="fas fa-hashtag"></i> Nº do Aluno:</label>
+                <input type="text" v-model="numeroAluno" readonly placeholder="automático">
+            </div>
+            <div class="info-group">
+                <label><i class="fas fa-hashtag"></i> Série:</label>
+                <input type="text" :value="serieAtual" readonly placeholder="automático">
+            </div>
+            <div class="info-group">
+                <label><i class="fas fa-calendar-day"></i> Data:</label>
+                <input type="text" v-model="dataAtividade" readonly>
+            </div>
+        </div>
+
+        <div class="error-message" :class="{ show: mostrarErro }">
+            <strong>❌ Erro:</strong> {{ mensagemErro }}
+        </div>
+
+        <div class="success-message" :class="{ show: mostrarSucesso }">
+            <strong>✅ Sucesso:</strong> {{ mensagemSucesso }}
+        </div>
+
+        <div class="title-activity">ATIVIDADE DE BIOLOGIA <span style="font-size: 1.3rem; background: #c8e6c9; padding: 0 10px; border-radius: 30px;">3º BIMESTRE</span></div>
+        <div class="sub">🌍 Ciclos Biogeoquímicos, Interferência Humana, Fertilizantes, Maré Vermelha e Eutrofização</div>
+
+        <!-- QUESTÕES -->
+        <div v-for="(q, idx) in questoes" :key="idx" class="question-block">
+            <div class="question-header">
+                <span class="question-icon">{{ idx+1 }}</span>
+                <div class="question-text-wrap">
+                    <div>
+                        <span class="habilidade-tag">{{ q.tema }}</span>
+                        <span class="tipo-tag" :class="{ dissertativa: q.tipo === 'dis' }">
+                            {{ q.tipo === 'obj' ? 'MÚLTIPLA ESCOLHA' : 'DISSERTATIVA' }}
+                        </span>
+                    </div>
+                    <span class="question-context" v-if="q.contexto">{{ q.contexto }}</span>
+                    <span class="question-text">{{ q.pergunta }}</span>
+                </div>
+            </div>
+
+            <div class="img-placeholder" v-if="q.imagem" style="background: #f9f9f9; border: 2px solid #2ecc71; padding: 20px;">
+                <img :src="q.imagem" :alt="'Questão ' + (idx+1)" class="zoomable"
+                    style="max-width: 100%; max-height: 400px; border-radius: 10px; display: block; margin: 0 auto;"
+                    @click="abrirZoom(q.imagem)">
+                <span class="zoom-hint"><i class="fas fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</span>
+            </div>
+
+            <div class="img-placeholder" v-else-if="q.icone">
+                <i :class="q.icone"></i> {{ q.descricao }}
+            </div>
+
+            <div v-if="q.tipo === 'obj'" class="options">
+                <label v-for="(alt, i) in q.alternativas" :key="i" class="option-item"
+                    :class="{ selected: respostas[idx].escolha === i }">
+                    <input type="radio" :name="'q'+idx" :value="i" v-model.number="respostas[idx].escolha">
+                    <span class="option-text">{{ alt }}</span>
+                </label>
+            </div>
+
+            <div v-else class="discursive-box">
+                <textarea rows="5" v-model="respostas[idx].texto"
+                    placeholder="Digite sua resposta aqui..."></textarea>
+            </div>
+        </div>
+
+        <div class="submit-area">
+            <button class="btn btn-submit" @click="enviarRespostas" :disabled="enviando">
+                <i class="fas" :class="enviando ? 'fa-spinner fa-spin' : 'fa-cloud-upload-alt'"></i>
+                {{ enviando ? 'ENVIANDO...' : 'ENVIAR RESPOSTAS' }}
+            </button>
+            <button class="btn btn-delete" @click="excluirRespostas" :disabled="enviando">
+                <i class="fas fa-trash-alt"></i> LIMPAR
+            </button>
+        </div>
+        <div class="footer-note">
+            <i class="fas fa-database"></i> Respostas serão armazenadas na planilha "Atividade Ciclo" do Google Sheets
+        </div>
+
+        <!-- LIGHTBOX / ZOOM DE IMAGEM -->
+        <div class="lightbox-overlay" v-if="imagemZoom" @click="fecharZoom">
+            <div class="lightbox-close" @click.stop="fecharZoom"><i class="fas fa-xmark"></i></div>
+            <img :src="imagemZoom" @click.stop alt="Imagem ampliada">
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        (function () {
+            // ---------- DADOS DOS ALUNOS POR TURMA (8º Ano A e 8º Ano B) ----------
+            const alunosPorTurma = {
+                A: [
+                    { num: 1, nome: 'ANGELLO GABRIEL CUTOLO TEIXEIRA', ra: '11649973-2' },
+                    { num: 2, nome: 'ARTHUR HENRIQUE MARQUES ENDRES', ra: '11586587-3' },
+                    { num: 4, nome: 'BIANCA CRISTINA DA SILVA SANTOS', ra: '12470244-6' },
+                    { num: 5, nome: 'BRAYAN DA SILVA FERREIRA', ra: '11321583-7' },
+                    { num: 6, nome: 'BRAYAN DUARTE DA SILVA', ra: '11415270-8' },
+                    { num: 7, nome: 'BRUNO LUIZ NASCIMENTO DA SILVA', ra: '11507471-8' },
+                    { num: 8, nome: 'CRISTIANO MARQUES BATISTA DE SOUZA', ra: '11416377-9' },
+                    { num: 9, nome: 'DANIEL RODRIGUES SANTOS DIAS', ra: '11425874-4' },
+                    { num: 10, nome: 'DIEGO BARRIO NOVO AMARAL DE ANDRADE', ra: '11594133-8' },
+                    { num: 11, nome: 'ESTER CODINA DE JESUS', ra: '11414373-2' },
+                    { num: 12, nome: 'FABRICIO LORENZO PARMA', ra: '12078766-5' },
+                    { num: 13, nome: 'GABRIELA PAULINA FERREIRA MARTINS', ra: '11587984-0' },
+                    { num: 14, nome: 'HYLLARY VICTORIA NERCIR DE FRANÇA', ra: '12079222-6' },
+                    { num: 15, nome: 'ISAAC BONFIM VIDOTTO', ra: '11415718-2' },
+                    { num: 16, nome: 'JHONAS KEYRRISON TROCATIS DA SILVA', ra: '11414551-3' },
+                    { num: 17, nome: 'JULIA VITORIA SEVERA LINS', ra: '11416113-7' },
+                    { num: 19, nome: 'KESIA DOS SANTOS SOSTE', ra: '11588371-1' },
+                    { num: 20, nome: 'KHIARA DE OLIVEIRA SILVA', ra: '11652742-8' },
+                    { num: 21, nome: 'LAURA BORGES AZEVEDO', ra: '11555091-4' },
+                    { num: 23, nome: 'LUAN DANTAS NICOLUCCI', ra: '11588556-0' },
+                    { num: 24, nome: 'LUAN RIBEIRO SILVA', ra: '12148880-0' },
+                    { num: 25, nome: 'MANUELA ANGELICA TRIANA DA SILVA', ra: '11588620-5' },
+                    { num: 26, nome: 'MARCELO GOMES THOMAZ', ra: '11507250-6' },
+                    { num: 27, nome: 'MARCOS CÉLIO DE JESUS', ra: '11414264-6' },
+                    { num: 28, nome: 'MARIA EDUARDA MACHADO DE LIMA', ra: '11325877-3' },
+                    { num: 29, nome: 'MATEUS DE JESUS JACINTO DOS SANTOS', ra: '12082809-0' },
+                    { num: 31, nome: 'PABLO HENRIQUE DUARTE DA SILVA', ra: '12083353-0' },
+                    { num: 32, nome: 'PAULO CÉSAR LAMBERT GONÇALVES', ra: '12514977-8' },
+                    { num: 34, nome: 'PIETRO MARTINS NOBRE', ra: '11416719-7' },
+                    { num: 36, nome: 'SOPHIA FRANÇA DE CARVALHO', ra: '11589081-5' },
+                    { num: 40, nome: 'WALLIF LEANDRO DE JESUS LESSA', ra: '11416377-8' },
+                    { num: 41, nome: 'BERNARDO GONCALVES JANELLI', ra: '12100742-6' }
+                ],
+                B: [
+                    { num: 1, nome: 'ANGELLO GABRIEL CUTOLO TEIXEIRA', ra: '11649973-2' },
+                    { num: 2, nome: 'ARTHUR HENRIQUE MARQUES ENDRES', ra: '11586587-3' },
+                    { num: 4, nome: 'BIANCA CRISTINA DA SILVA SANTOS', ra: '12470244-6' },
+                    { num: 5, nome: 'BRAYAN DA SILVA FERREIRA', ra: '11321583-7' },
+                    { num: 6, nome: 'BRAYAN DUARTE DA SILVA', ra: '11415270-8' },
+                    { num: 7, nome: 'BRUNO LUIZ NASCIMENTO DA SILVA', ra: '11507471-8' },
+                    { num: 8, nome: 'CRISTIANO MARQUES BATISTA DE SOUZA', ra: '11416377-9' },
+                    { num: 9, nome: 'DANIEL RODRIGUES SANTOS DIAS', ra: '11425874-4' },
+                    { num: 10, nome: 'DIEGO BARRIO NOVO AMARAL DE ANDRADE', ra: '11594133-8' },
+                    { num: 11, nome: 'ESTER CODINA DE JESUS', ra: '11414373-2' },
+                    { num: 12, nome: 'FABRICIO LORENZO PARMA', ra: '12078766-5' },
+                    { num: 13, nome: 'GABRIELA PAULINA FERREIRA MARTINS', ra: '11587984-0' },
+                    { num: 14, nome: 'HYLLARY VICTORIA NERCIR DE FRANÇA', ra: '12079222-6' },
+                    { num: 15, nome: 'ISAAC BONFIM VIDOTTO', ra: '11415718-2' },
+                    { num: 16, nome: 'JHONAS KEYRRISON TROCATIS DA SILVA', ra: '11414551-3' },
+                    { num: 17, nome: 'JULIA VITORIA SEVERA LINS', ra: '11416113-7' },
+                    { num: 19, nome: 'KESIA DOS SANTOS SOSTE', ra: '11588371-1' },
+                    { num: 20, nome: 'KHIARA DE OLIVEIRA SILVA', ra: '11652742-8' },
+                    { num: 21, nome: 'LAURA BORGES AZEVEDO', ra: '11555091-4' },
+                    { num: 23, nome: 'LUAN DANTAS NICOLUCCI', ra: '11588556-0' },
+                    { num: 24, nome: 'LUAN RIBEIRO SILVA', ra: '12148880-0' },
+                    { num: 25, nome: 'MANUELA ANGELICA TRIANA DA SILVA', ra: '11588620-5' },
+                    { num: 26, nome: 'MARCELO GOMES THOMAZ', ra: '11507250-6' },
+                    { num: 27, nome: 'MARCOS CÉLIO DE JESUS', ra: '11414264-6' },
+                    { num: 28, nome: 'MARIA EDUARDA MACHADO DE LIMA', ra: '11325877-3' },
+                    { num: 29, nome: 'MATEUS DE JESUS JACINTO DOS SANTOS', ra: '12082809-0' },
+                    { num: 31, nome: 'PABLO HENRIQUE DUARTE DA SILVA', ra: '12083353-0' },
+                    { num: 32, nome: 'PAULO CÉSAR LAMBERT GONÇALVES', ra: '12514977-8' },
+                    { num: 34, nome: 'PIETRO MARTINS NOBRE', ra: '11416719-7' },
+                    { num: 36, nome: 'SOPHIA FRANÇA DE CARVALHO', ra: '11589081-5' },
+                    { num: 40, nome: 'WALLIF LEANDRO DE JESUS LESSA', ra: '11416377-8' },
+                    { num: 41, nome: 'BERNARDO GONCALVES JANELLI', ra: '12100742-6' }
+                ]
+            };
+            // Observação: as planilhas enviadas para as turmas A e B continham a
+            // mesma relação de alunos e RAs (apenas o domínio de e-mail mudava).
+            // Caso a turma B tenha uma relação diferente, basta substituir a
+            // lista acima por ela.
+
+            // ---------- QUESTÕES ----------
+            const questoes = [
+                {
+                    tema: 'Ciclos Biogeoquímicos · Aula 1',
+                    tipo: 'obj',
+                    contexto: 'O ciclo do nitrogênio é fundamental para a vida, pois o nitrogênio é um elemento essencial para a formação de proteínas e ácidos nucleicos.',
+                    pergunta: 'Qual dos seguintes elementos é essencial para a formação de proteínas em todos os seres vivos?',
+                    imagem: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgbw2SNyWQzLIRjXl9ca1cXmR5JbK9_PqqtV7hvmimxO_kMO7JE79j5Zwt5ziDW-cYVbpz507BoT16SVx0Cga5QW_QNvVUJMDUVuPp_u8Frbm8LkuwOzXeyzSJ-SgRzCpvUkuZaf88Xt-J0yJ7WvyXkz6bdiwjuGHOmiYXg5DwRFY0RBG_EPvfpikQP9wCb/s659/images.jpg',
+                    alternativas: ['Oxigênio (O)', 'Nitrogênio (N)', 'Fósforo (P)', 'Enxofre (S)'],
+                    correta: 1
+                },
+                {
+                    tema: 'Interferência Humana · Aula 2',
+                    tipo: 'obj',
+                    contexto: 'A interferência humana nos ciclos biogeoquímicos tem causado desequilíbrios ambientais significativos, alterando os padrões naturais desses processos.',
+                    pergunta: 'Qual das alternativas melhor exemplifica a interferência humana no ciclo do nitrogênio?',
+                    imagem: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhEX4EXGj3S71ogBW8iEpX-fH-7AcMXuhEG6hUXSrn5CYChfNWx3YkTlaTrINdkiamuDE-NnZCIBMaWd34D_sFVIyJW3l2mrDvB_r2N7WR4pllxkOEGvlH_BJEBXOmVyLHy7fDvJk_TXwYt-gRtwD6dyBGz7Hn0AS7DAK4LEZL5sq53vrsx1iaCk4_n4hxt/s1536/ChatGPT%20Image%2019%20de%20ago.%20de%202026,%2008_32_39.png',
+                    icone: 'fas fa-industry',
+                    descricao: 'Impacto da indústria nos ciclos naturais',
+                    alternativas: ['Evaporação da água dos oceanos', 'Produção industrial de fertilizantes nitrogenados em larga escala', 'Fotossíntese realizada pelas plantas', 'Respiração aeróbica dos organismos'],
+                    correta: 1
+                },
+                {
+                    tema: 'Uso de Fertilizantes · Aula 3',
+                    tipo: 'obj',
+                    contexto: 'Os fertilizantes agrícolas são utilizados para aumentar a produtividade das culturas, mas seu uso inadequado pode causar sérios problemas ambientais.',
+                    pergunta: 'Qual é o principal nutriente presente em fertilizantes que causa eutrofização em corpos d\'água?',
+                     imagem: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhTCtE_T-u3mOny62_BZygTMYromV0TFVxgahZ3pdVjCRFDvtn-VSZjwCXHaT4G-c7MX1veED-2kL8mjgafM-RM9PsuR7weAZiPO96nYWl1FJxSmDkEC8PIaFOnboASPVx2KsjAkhEpvtUY-nlYh7UC_4_AWbffBSgQU4dELdESOgizlQJ0LuvcUeVpxIk3/s1536/ChatGPT%20Image%2019%20de%20ago.%20de%202026,%2008_44_14.png', 
+                    icone: 'fas fa-leaf',
+                    descricao: 'Fertilizantes e sua aplicação na agricultura',
+                    alternativas: ['Cálcio (Ca)', 'Potássio (K)', 'Nitrogênio (N) e Fósforo (P)', 'Ferro (Fe)'],
+                    correta: 2
+                },
+                {
+                    tema: 'Maré Vermelha · Aula 4',
+                    tipo: 'obj',
+                    contexto: 'A maré vermelha é um fenômeno causado pela proliferação descontrolada de algas ou organismos marinhos, frequentemente associado à eutrofização de corpos d\'água.',
+                    pergunta: 'Qual é a consequência direta da eutrofização que leva à formação da maré vermelha e morte de peixes?',
+                    imagem: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEitweScUXwd71UXLHG96zXZZ-ZAKaW96dBMzpvTvYu0Icv_Shp2-jRXWFmV9uHV6s1bd-GtOOkyrjTI8jCu2IWRpwJSJk06QSXv94e0tzWeXlbGz6JIIwUkbpzH2XXu6oI1o4h3XlanJBsEKjOEcLk4r5uRlgVeZxaJ_5PJS0AaPkwjUB97aVbVU39AkCqb/s1536/ChatGPT%20Image%2019%20de%20ago.%20de%202026,%2008_55_58.png',
+                    icone: 'fas fa-water',
+                    descricao: 'Maré vermelha: proliferação de algas',
+                    alternativas: ['Aumento da transparência da água', 'Redução do oxigênio dissolvido na água causando morte de peixes', 'Diminuição da população de algas', 'Aumento da salinidade das águas'],
+                    correta: 1
+                },
+                {
+                    tema: 'Eutrofização · Aula 4-5',
+                    tipo: 'obj',
+                    contexto: 'O processo de eutrofização ocorre quando há um enriquecimento excessivo de nutrientes em um corpo d\'água, alterando completamente o ecossistema aquático.',
+                    pergunta: 'Qual das opções melhor descreve o processo de eutrofização?',
+                    imagem: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjWh8_lstrzPb_J5_e0Q5VLDn0N4_4HSpAroh5TmH9xR5p1jJl9LyA-9ThAVtujeqwpcl4c_f7-Mv9e85nFNb8BoX_5D647FyhxKQuFO0yGiU4uPRMcLAB3ae4doHYsx3g9VJ2LSFmagSj8gRm97C7NmnzNbETota7qCSRumze8Ip9UijKdiE-9r5W16vAi/s1536/ChatGPT%20Image%2019%20de%20ago.%20de%202026,%2008_59_18.png',
+                    icone: 'fas fa-algae',
+                    descricao: 'Eutrofização de corpos d\'água',
+                    alternativas: ['Processo natural de envelhecimento de um lago ao longo de milhares de anos', 'Enriquecimento de nutrientes que estimula crescimento de algas e reduz oxigênio dissolvido', 'Contaminação causada apenas por resíduos industriais tóxicos', 'Aumento de predadores que controlam peixes'],
+                    correta: 1
+                },
+                {
+                    tema: 'Ações Mitigatórias · Aula 5-6',
+                    tipo: 'obj',
+                    contexto: 'Para reduzir os impactos dos fertilizantes nos ciclos biogeoquímicos, é necessário implementar práticas agrícolas sustentáveis.',
+                    pergunta: 'Qual das seguintes ações é considerada uma medida mitigatória eficaz para reduzir os impactos dos fertilizantes?',
+                     imagem: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhIa9rh4-ZbGjPXvcR23AQhtJMrZTnS5kDcT826ZBu4DEF7IZ1R6IaXl0OGsf7IYPWtZngvTbeZx0aNuaKeFx6sBKGFUG0WBFFo9KyxU5T_hflacJaXwx892dKSv-MiYpiWCnbu9OvelLpd0Vd1jwnflwKs90ipuEnEB5VOQb9PbpWXoTu2Fw-hpBDQCsGF/s1080/EdEB73NXoAA4wQx%20%281%29.png',
+                    icone: 'fas fa-sprout',
+                    descricao: 'Práticas agrícolas sustentáveis',
+                    alternativas: ['Aumentar a quantidade de fertilizantes aplicados', 'Implementar adubação verde e rotação de culturas', 'Aplicar fertilizantes próximo a rios e lagos', 'Proibir completamente o uso de fertilizantes'],
+                    correta: 1
+                },
+                {
+                    tema: 'Ações Mitigatórias · Aula 6',
+                    tipo: 'obj',
+                    contexto: 'As zonas de amortecimento (buffer zones) são áreas de transição entre terras agrícolas e corpos d\'água, funcionando como filtros naturais.',
+                    pergunta: 'Qual é o principal objetivo da criação de zonas de amortecimento nas margens de corpos d\'água?',
+                    imagem: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkJSrxgjqERBtVVGMkl5dyFjuh0Tp_zbPVnNxjFjKVZ_GUXkoiFFF58LNk3oH8qB8U22UfrexsuIjQfPaNyXMK5Jbx2MFsNcYM9OXMLaYvFNKnZSpxRULUzWCI1jDXZZAmYoHQfU8xopP3J8bIEyHoSh7l4C2l9ohI9ibpNFAuaI0u7GwEP2T39MpM17e_/s1024/watermarked_img_16161872693111989557.jpg',
+                    icone: 'fas fa-tree',
+                    descricao: 'Zonas de amortecimento: proteção de recursos hídricos',
+                    alternativas: ['Evitar que fertilizantes escorram diretamente para rios e lagos', 'Aumentar a quantidade de peixes nos rios', 'Eliminar todas as algas aquáticas', 'Reduzir a profundidade dos rios'],
+                    correta: 0
+                },
+                {
+                    tema: 'Ciclos Biogeoquímicos · Aula 1-2',
+                    tipo: 'dis',
+                    contexto: 'Retome o que foi estudado sobre ciclos biogeoquímicos e a interferência humana.',
+                    pergunta: 'Explique as diferenças entre o ciclo biogeoquímico do nitrogênio em condições naturais e com interferência humana. Cite pelo menos dois impactos da interferência humana.',
+                    imagem: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiuVi8kEIuaDZ582EbMqBFQvVkqyY5NK5uqf1LAzci8CO_hAwwQNXDhdktDpIKtxhmIuEPsaV6Ak9T1ipRB5nTg8k0hmuebQ6Hvx-BqS_s7HwcQdJECtbuh7ktj1GLpjz5KdqMSyrJ_DkfEqKoSWkS1esC30jV0B1jnjAV_GGkNTmTUG1MLM0H49oPbOecL/s1024/watermarked_img_4662509225796758063.jpg',
+                    icone: 'fas fa-atom',
+                    descricao: 'Ciclos naturais vs interferência humana'
+                },
+                {
+                    tema: 'Eutrofização e Maré Vermelha · Aula 4-5',
+                    tipo: 'dis',
+                    contexto: 'Pense em tudo o que você aprendeu sobre eutrofização e suas consequências.',
+                    pergunta: 'Descreva o processo de eutrofização e explique como a maré vermelha está relacionada a este processo. Quais organismos podem causar a maré vermelha?',
+                    imagem:'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiwTIU-BKPvzf8asg7P8Qg6xXBrdT7LQdeqeUs1qa4ezfMK-tpgUqKLWVz_zVqS7lJx_pEbmyS7P0VcofXFnrK9kIGGei4ArXoBMLFpIzx3KZgbHUjPHdUu3Uat-jtuqmjZHcZxeQnKRmkfVr-ytkv-vnbYCEQCETOLS3ucrvoCDLahKdcsGDO8Xf_tbJc2/s1024/watermarked_img_16442287044751666671.jpg',
+                    icone: 'fas fa-water',
+                    descricao: 'Eutrofização e proliferação de algas'
+                },
+                {
+                    tema: 'Ações Mitigatórias · Aula 5-6',
+                    tipo: 'dis',
+                    contexto: 'Imagine que você é um consultor ambiental encarregado de resolver problemas de poluição por fertilizantes em uma região agrícola.',
+                    pergunta: 'Apresente um plano de ações mitigatórias que poderia ser implementado em uma região agrícola para reduzir o impacto dos fertilizantes nos ciclos biogeoquímicos. Justifique cada ação proposta.',
+                    imagem: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgsv0TUyRo6tbqU73bXgHN_I1Y73hq8zcwMbFauQo0ECZQYleY_GAmFp7_VYF7Xpdnos-Y7ZrcHmWXl23S0FOk1CcWH_aT2K2zgX9yPEEtyoc1M7A_ZTFfLkqewz1djkC_4VP39KRgIcuj_n3sI7cAgfKZqkXFT5SbIjiT_bvVhXInhbk0rdcSmYz9CMoKp/s1024/watermarked_img_6679412048640821085.jpg',
+                    icone: 'fas fa-clipboard-list',
+                    descricao: 'Plano de ações mitigatórias para agricultura sustentável'
+                }
+            ];
+
+            // ---------- VUE APP ----------
+            new Vue({
+                el: '#app',
+                data: {
+                    alunosPorTurma: alunosPorTurma,
+                    turmaSelecionada: null,
+                    alunoSelecionado: null,
+                    numeroAluno: '',
+                    serieAtual: '',
+                    dataAtividade: '',
+                    questoes: questoes,
+                    enviando: false,
+                    mostrarErro: false,
+                    mostrarSucesso: false,
+                    mensagemErro: '',
+                    mensagemSucesso: '',
+                    webAppUrl: 'https://script.google.com/macros/s/AKfycbxI1aQWKEQPJMX7-jCet3XJAqQ8eZzUj4H9fX6kOtHI0vJIBtBLkQNB-Evs_K_juhMQ/exec',
+                    imagemZoom: null,
+                    respostas: questoes.map(q => {
+                        if (q.tipo === 'obj') {
+                            return { tipo: 'obj', escolha: null };
+                        } else {
+                            return { tipo: 'dis', texto: '' };
+                        }
+                    })
+                },
+                computed: {
+                    alunosDaTurma() {
+                        if (!this.turmaSelecionada) return [];
+                        return this.alunosPorTurma[this.turmaSelecionada] || [];
+                    }
+                },
+                mounted() {
+                    this.dataAtividade = new Date().toLocaleDateString('pt-BR');
+
+                    // Fechar zoom com a tecla ESC
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'Escape') this.fecharZoom();
+                    });
+                    
+                    // Carregar dados salvos localmente
+                    const saved = localStorage.getItem('respostas_biologia_3f_ciclos');
+                    if (saved) {
+                        try {
+                            const parsed = JSON.parse(saved);
+                            this.turmaSelecionada = parsed.turma || null;
+                            if (this.turmaSelecionada) {
+                                this.serieAtual = this.turmaSelecionada === 'A' ? '8º Ano A' : '8º Ano B';
+                            }
+                            const listaTurma = this.turmaSelecionada ? (alunosPorTurma[this.turmaSelecionada] || []) : [];
+                            this.alunoSelecionado = listaTurma.find(a => a.num === parsed.alunoNum) || null;
+                            if (this.alunoSelecionado) {
+                                this.numeroAluno = this.alunoSelecionado.num;
+                            }
+                            if (parsed.respostas) {
+                                parsed.respostas.forEach((r, i) => {
+                                    if (this.respostas[i]) {
+                                        this.respostas[i].escolha = r.escolha;
+                                        this.respostas[i].texto = r.texto;
+                                    }
+                                });
+                            }
+                        } catch (e) {
+                            console.error("Erro ao carregar cache local", e);
+                        }
+                    }
+                },
+                watch: {
+                    respostas: {
+                        deep: true,
+                        handler() {
+                            this.salvarContextoLocal();
+                        }
+                    },
+                    alunoSelecionado() {
+                        this.salvarContextoLocal();
+                    },
+                    turmaSelecionada() {
+                        this.salvarContextoLocal();
+                    }
+                },
+                methods: {
+                    abrirZoom(url) {
+                        this.imagemZoom = url;
+                    },
+                    fecharZoom() {
+                        this.imagemZoom = null;
+                    },
+                    salvarContextoLocal() {
+                        const data = {
+                            turma: this.turmaSelecionada,
+                            alunoNum: this.alunoSelecionado ? this.alunoSelecionado.num : null,
+                            respostas: this.respostas
+                        };
+                        localStorage.setItem('respostas_biologia_3f_ciclos', JSON.stringify(data));
+                    },
+                    onTurmaChange() {
+                        // Ao trocar de turma, reinicia a seleção de aluno,
+                        // pois a lista de nomes disponíveis muda.
+                        this.alunoSelecionado = null;
+                        this.numeroAluno = '';
+                        this.serieAtual = this.turmaSelecionada === 'A' ? '8º Ano A'
+                            : this.turmaSelecionada === 'B' ? '8º Ano B' : '';
+                        this.salvarContextoLocal();
+                    },
+                    preencherDados() {
+                        if (this.alunoSelecionado) {
+                            this.numeroAluno = this.alunoSelecionado.num;
+                        } else {
+                            this.numeroAluno = '';
+                        }
+                        this.salvarContextoLocal();
+                    },
+                    mostrarMensagem(tipo, mensagem, duracao = 5000) {
+                        if (tipo === 'erro') {
+                            this.mensagemErro = mensagem;
+                            this.mostrarErro = true;
+                            setTimeout(() => { this.mostrarErro = false; }, duracao);
+                        } else if (tipo === 'sucesso') {
+                            this.mensagemSucesso = mensagem;
+                            this.mostrarSucesso = true;
+                            setTimeout(() => { this.mostrarSucesso = false; }, duracao);
+                        }
+                    },
+                    enviarRespostas() {
+                        if (!this.turmaSelecionada) {
+                            this.mostrarMensagem('erro', 'Por favor, selecione sua turma antes de enviar!');
+                            return;
+                        }
+
+                        if (!this.alunoSelecionado) {
+                            this.mostrarMensagem('erro', 'Por favor, selecione seu nome antes de enviar!');
+                            return;
+                        }
+
+                        if (!this.webAppUrl || this.webAppUrl.includes('COLE_AQUI')) {
+                            this.mostrarMensagem('erro', 'URL do Google Apps Script não configurada. Peça ao professor para ativar o formulário.');
+                            return;
+                        }
+
+                        this.enviando = true;
+
+                        // Letras usadas para identificar cada alternativa (A, B, C, D...)
+                        const LETRAS = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+                        const payload = {
+                            timestamp: new Date().toLocaleString('pt-BR'),
+                            data: this.dataAtividade,
+                            turma: this.serieAtual,
+                            numero: this.alunoSelecionado.num,
+                            aluno: this.alunoSelecionado.nome,
+                            ra: this.alunoSelecionado.ra || '',
+                            email: '',
+                            respostas: this.respostas.map((r, idx) => {
+                                if (r.tipo === 'obj') {
+                                    return {
+                                        questao: idx + 1,
+                                        tipo: 'MC',
+                                        // CORREÇÃO: agora enviamos também a LETRA da alternativa
+                                        // escolhida, que é o que o Apps Script usa para comparar
+                                        // com o gabarito e gravar "Correta/Errada" na planilha.
+                                        letra: r.escolha !== null ? LETRAS[r.escolha] : '',
+                                        resposta: r.escolha !== null ? this.questoes[idx].alternativas[r.escolha] : '(não respondida)'
+                                    };
+                                } else {
+                                    return {
+                                        questao: idx + 1,
+                                        tipo: 'DIS',
+                                        resposta: r.texto || '(em branco)'
+                                    };
+                                }
+                            })
+                        };
+
+                        console.log('📦 Enviando:', JSON.stringify(payload, null, 2));
+
+                        fetch(this.webAppUrl, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'text/plain;charset=utf-8'
+                            },
+                            body: JSON.stringify(payload)
+                        })
+                            .then(response => {
+                                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                                return response.json();
+                            })
+                            .then(data => {
+                                if (data.status === 'success') {
+                                    this.mostrarMensagem('sucesso', `✅ Respostas de ${this.alunoSelecionado.nome} foram registradas com sucesso!`, 6000);
+                                    setTimeout(() => this.excluirRespostasSilencioso(), 2000);
+                                } else {
+                                    this.mostrarMensagem('erro', `⚠️ ${data.message || 'Erro ao processar'}`, 6000);
+                                }
+                            })
+                            .catch(err => {
+                                this.mostrarMensagem('erro', `❌ Erro: ${err.message}. Verifique a URL do Apps Script.`, 7000);
+                            })
+                            .finally(() => {
+                                this.enviando = false;
+                            });
+                    },
+                    excluirRespostas() {
+                        if (confirm('Tem certeza que deseja limpar todas as respostas?')) {
+                            this.excluirRespostasSilencioso();
+                            this.mostrarMensagem('sucesso', '✅ Todas as respostas foram limpas!', 3000);
+                        }
+                    },
+                    excluirRespostasSilencioso() {
+                        this.respostas = this.questoes.map(q => {
+                            if (q.tipo === 'obj') {
+                                return { tipo: 'obj', escolha: null };
+                            } else {
+                                return { tipo: 'dis', texto: '' };
+                            }
+                        });
+                        localStorage.removeItem('respostas_biologia_3f_ciclos');
+                    }
+                }
+            });
+        })();
+    </script>
+</body>
+
+</html>
